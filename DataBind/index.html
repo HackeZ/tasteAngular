@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myApp'>
+    <head>
+        <title>Data Bind</title>
+        <script src="../angular.min.js"></script>
+        <script src="controllers.js"></script>
+    </head>
+    <body>
+        <div ng-controller='HelloController'>
+            <input type="text" ng-model='greeting.text'>
+            <p ng-bind='greeting.text'></p>
+        </div>
+    </body>
+</html>

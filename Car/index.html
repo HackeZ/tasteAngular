@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <title>Shipping Car</title>
+    </head>
+    <body ng-controller='CarController'>
+        <h1>Your Shipping Car</h1>
+        <div ng-repeat='item in items'>
+            <span ng-bind='item.title'></span>
+            <input type="text" ng-model='item.quantity'>
+            <span ng-bind='item.price | currency'></span>
+            <span ng-bind='item.price * item.quantity | currency'></span>
+            <button ng-click='remove($index)'>Remove</button>
+        </div>
+        <script src="../angular.min.js"></script>
+        <script src="controllers.js"></script>
+    </body>
+</html>

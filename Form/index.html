@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <script src="../angular.min.js"></script>
+    <script src="controllers.js"></script>
+    <style>
+        .checkbox-true {
+            color: green;
+        }
+        
+        .checkbox-false {
+            color: red;
+        }
+    </style>
+
+    <body>
+        <form ng-app="FormController">
+            <input type="checkbox" ng-model="youCheckedIt" ng-init="youCheckedIt=true">
+            <p class="checkbox-{{youCheckedIt}}" ng-bind="youCheckedIt"></p>
+        </form>
+        <form ng-controller="StartUpController">
+            Starting: <input ng-model="funding.startingEstimate"> Recommendation: {{funding.needed}}
+        </form>
+        <form ng-controller="NewStartUpController" ng-submit="requestFunding()"> <!-- ng-submit 可以指定执行函数，并且阻止浏览器执行的POST操作 -->
+            Starting: <input ng-change="computeNeeded()" ng-model="startingEstimate"> Recommendation: {{needed}}
+            <button>Fund my startup!</button>
+        </form>
+    </body>
+
+</html>
