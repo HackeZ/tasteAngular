@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <script src="../angular.min.js"></script>
+        <script src="controllers.js"></script>
+    </head>
+    <body>
+        <div ng-controller="CarController">
+            <div ng-repeat="item in items">
+                <span>{{item.title}}</span>
+                <input type="text" ng-model="item.quantity">
+                <span>{{item.price | currency}}</span>
+                <span>{{item.price * item.quantity | currency}}</span>
+            </div>
+            <div>Total:{{totalCart() | currency}}</div>
+            <div>Discount: {{bill.discount | currency}}</div>
+            <div>Subtotal: {{subtotal() | currency}}</div>
+        </div>
+    </body>
+</html>
