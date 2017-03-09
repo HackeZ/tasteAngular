@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ShoppingModule">
+    <head>
+        <title>Shopping Module</title>
+        <meta charset="UTF-8">
+        <script src="../angular.min.js"></script>
+        <script src="controllers.js"></script>
+    </head>
+    <body ng-controller="ShoppingController">
+        <h1>Shop!</h1>
+        <table ng-repeat="item in items">
+            <tr>
+                <td>{{item.title}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.price | currency}}</td>
+            </tr>
+        </table>
+    </body>
+</html>

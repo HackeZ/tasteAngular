@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <title>Filter Controller</title>
+        <meta charset="UTF-8">
+        <script src="../angular.min.js"></script>
+        <script src="controllers.js"></script>
+    </head>
+    <body ng-controller="FilterController">
+        <h1>{{title | titleCase}}</h1>
+        <h2>{{name | uppercase}}</h2>
+        <h3>{{price | currency}}</h3>
+    </body>
+</html>

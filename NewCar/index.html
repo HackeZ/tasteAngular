@@ -14,9 +14,9 @@
                 <span>{{item.price | currency}}</span>
                 <span>{{item.price * item.quantity | currency}}</span>
             </div>
-            <div>Total:{{totalCart() | currency}}</div>
+            <div>Total:{{bill.totalCart | currency}}</div>
             <div>Discount: {{bill.discount | currency}}</div>
-            <div>Subtotal: {{subtotal() | currency}}</div>
+            <div>Subtotal: {{bill.subtotal | currency}}</div>
         </div>
     </body>
 </html>
