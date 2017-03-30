@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"GutHub/controller"
+	"GutHub/srv/controller"
 	fastpr "github.com/buaazp/fasthttprouter"
 	fasthp "github.com/valyala/fasthttp"
 )
