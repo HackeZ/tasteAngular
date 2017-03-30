@@ -52,8 +52,8 @@ func main() {
 	router := fastpr.New()
 	router.GET("/guts", controller.GetGutList)
 	router.POST("/guts/add", controller.AddGut)
-	router.POST("/guts/modify/:id", controller.ModifyGut)
-	router.POST("/guts/delete/:id", controller.DeleteGut)
+	router.PUT("/guts/modify/:id", controller.ModifyGut)
+	router.DELETE("/guts/delete/:id", controller.DeleteGut)
 
 	if err := fasthp.ListenAndServe(config.Address, router.Handle); err != nil {
 		log.Fatalln("start GutHub server failed, error:", err)
