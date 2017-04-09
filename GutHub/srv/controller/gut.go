@@ -29,11 +29,14 @@ func GetGutList(ctx *fasthp.RequestCtx) {
 	var returnData protocol.ReturnData
 	returnData.Code = -1
 	log.Println("got GetGutList req.")
+	defer func() {
+		log.Println("return data:", returnData)
+	}()
 
 	result, err := json.Marshal(gutList)
 	if err != nil {
 		returnData.Message = "get gut list failed, error:" + err.Error()
-		log.Fatalln(returnData.Message)
+		log.Println(returnData.Message)
 		result, _ = json.Marshal(returnData)
 
 		ctx.SetStatusCode(408)
@@ -56,10 +59,13 @@ func AddGut(ctx *fasthp.RequestCtx) {
 	var returnData protocol.ReturnData
 	returnData.Code = -1
 	log.Println("got AddGut req.")
+	defer func() {
+		log.Println("return data:", returnData)
+	}()
 
 	if !ctx.IsPost() {
 		returnData.Message = "can not handle AddGut do not in POST method."
-		log.Fatalln(returnData.Message)
+		log.Println(returnData.Message)
 		result, _ := json.Marshal(returnData)
 
 		ctx.SetStatusCode(408)
@@ -67,12 +73,13 @@ func AddGut(ctx *fasthp.RequestCtx) {
 		return
 	}
 
-	gutByte := ctx.FormValue("gut")
+	gutByte := ctx.PostBody()
+	log.Println("gut form post:", string(gutByte))
 	var gut protocol.Gut
 	err := json.Unmarshal(gutByte, &gut)
 	if err != nil {
 		returnData.Message = "unmarshal data failed, error:" + err.Error()
-		log.Fatalln(returnData.Message)
+		log.Println(returnData.Message)
 		result, _ := json.Marshal(returnData)
 
 		ctx.SetStatusCode(408)
@@ -85,10 +92,9 @@ func AddGut(ctx *fasthp.RequestCtx) {
 	commonID++
 	mutex.Unlock()
 
-	gutList = append(gutList, func() *protocol.Gut {
-		gut.ID = id
-		return &gut
-	}())
+	gut.ID = id
+	log.Printf("append gut: %+v\n", gut)
+	gutList = append(gutList, &gut)
 
 	returnData.Code = 0
 	returnData.Message = "add gut to list success"
@@ -105,13 +111,16 @@ func ModifyGut(ctx *fasthp.RequestCtx) {
 	var returnData protocol.ReturnData
 	returnData.Code = -1
 	log.Println("got ModifyGut req.")
+	defer func() {
+		log.Println("return data:", returnData)
+	}()
 
-	gutByte := ctx.FormValue("gut")
+	gutByte := ctx.PostBody()
 	var gutChange protocol.Gut
 	err := json.Unmarshal(gutByte, &gutChange)
 	if err != nil {
 		returnData.Message = "unmarshal data failed, error:" + err.Error()
-		log.Fatalln(returnData.Message)
+		log.Println(returnData.Message)
 		result, _ := json.Marshal(returnData)
 
 		ctx.SetStatusCode(408)
@@ -134,7 +143,7 @@ func ModifyGut(ctx *fasthp.RequestCtx) {
 	}
 
 	returnData.Message = "can not find this gut in list"
-	log.Fatalln(returnData.Message)
+	log.Println(returnData.Message)
 	result, _ := json.Marshal(returnData)
 
 	ctx.SetStatusCode(408)
@@ -146,13 +155,16 @@ func DeleteGut(ctx *fasthp.RequestCtx) {
 	var returnData protocol.ReturnData
 	returnData.Code = -1
 	log.Println("got DeleteGut req.")
+	defer func() {
+		log.Println("return data:", returnData)
+	}()
 
 	gutByte := ctx.FormValue("gut")
 	var id int
 	err := json.Unmarshal(gutByte, &id)
 	if err != nil {
 		returnData.Message = "unmarshal data failed, error:" + err.Error()
-		log.Fatalln(returnData.Message)
+		log.Println(returnData.Message)
 		result, _ := json.Marshal(returnData)
 
 		ctx.SetStatusCode(408)
@@ -162,7 +174,7 @@ func DeleteGut(ctx *fasthp.RequestCtx) {
 
 	if id <= 0 {
 		returnData.Message = "validate id"
-		log.Fatalln(returnData.Message)
+		log.Println(returnData.Message)
 		result, _ := json.Marshal(returnData)
 
 		ctx.SetStatusCode(408)
@@ -185,7 +197,7 @@ func DeleteGut(ctx *fasthp.RequestCtx) {
 	}
 
 	returnData.Message = "can not find this gut in list"
-	log.Fatalln(returnData.Message)
+	log.Println(returnData.Message)
 	result, _ := json.Marshal(returnData)
 
 	ctx.SetStatusCode(408)

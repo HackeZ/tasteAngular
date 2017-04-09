@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	initConfig = "../conf/init.json"
+	initConfig = "./conf/init.json"
 )
 
 var config struct {
@@ -55,7 +55,7 @@ func main() {
 	router.PUT("/guts/modify/:id", controller.ModifyGut)
 	router.DELETE("/guts/delete/:id", controller.DeleteGut)
 
-	if err := fasthp.ListenAndServe(config.Address, router.Handle); err != nil {
+	if err := fasthp.ListenAndServe(config.Address, router.Handler); err != nil {
 		log.Fatalln("start GutHub server failed, error:", err)
 	}
 }
