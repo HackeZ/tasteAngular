@@ -56,6 +56,6 @@ func main() {
 	router.DELETE("/guts/delete/:id", controller.DeleteGut)
 
 	if err := fasthp.ListenAndServe(config.Address, router.Handler); err != nil {
-		log.Fatalln("start GutHub server failed, error:", err)
+		log.Println("start GutHub server failed, error:", err)
 	}
 }
